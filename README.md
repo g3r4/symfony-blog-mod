@@ -81,3 +81,10 @@ $ cd symfony_demo/
 $ git checkout tags/v0.8.4 -b v0.8.4
 $ composer install
 ```
+
+Commands used for this:
+
+bin/console list
+bin/console generate:controller
+bin/console cache:clear
+bin/console server:start
