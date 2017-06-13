@@ -14,6 +14,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use \JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
@@ -30,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class Post
+class Post implements JsonSerializable
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -240,5 +241,11 @@ class Post
     public function getTags()
     {
         return $this->tags;
+    }
+
+    // function called when encoded with json_encode
+    public function jsonSerialize()
+    {
+      return get_object_vars($this);
     }
 }

@@ -24,6 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -49,11 +50,15 @@ class BlogController extends Controller
     public function indexAction($page, $_format)
     {
         $posts = $this->getDoctrine()->getRepository(Post::class)->findLatest($page);
+        $json_posts = $this->getDoctrine()->getRepository(Post::class)->findAll();
 
         // Every template name also has two extensions that specify the format and
         // engine for that template.
         // See https://symfony.com/doc/current/templating.html#template-suffix
-        return $this->render('blog/index.'.$_format.'.twig', ['posts' => $posts]);
+        //dump($json_posts);
+
+        return new JsonResponse(array('name' => $json_posts));
+        //return $this->render('blog/index.'.$_format.'.twig', ['posts' => $posts]);
     }
 
     /**
